@@ -25,3 +25,6 @@ Route::get('regProduto', function () {
 Route::get('historico', function () {
     return view('historico');
 });
+
+
+Route::get('/Vendas','VendasController@index');

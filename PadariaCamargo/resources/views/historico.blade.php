@@ -10,7 +10,26 @@
         <div id="cabecalho">
             <a href="/">home</a>
         </div>
-        <div id="conteudo"></div>
+        <div id="conteudo">
+            <table id="tbHistorico">
+                <tr>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Data</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
         <div id="rodape"></div>
     </body>
 </html>
