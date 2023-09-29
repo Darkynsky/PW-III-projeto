@@ -62,11 +62,7 @@
             @foreach($produto as $c)
             <tr class="tb_tr_EAdmList">
                 <td>{{$c->idProduto}}</td>
-                <td>
-                    <a href="/admProdutos/escolhido/{{$c->produto}}">
-                        {{$c->produto}}
-                    </a>
-                </td>
+                <td>{{$c->produto}}</td>
                 <td>R$ {{$c->valor}}</td>
                 <td>{{$c->descrProduto}}</td>
                 <td>{{$c->dtCadastro}}</td>

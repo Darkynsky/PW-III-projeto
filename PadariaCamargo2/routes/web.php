@@ -18,7 +18,7 @@ Route::get('consultacep', function () {
 
 Route::post('/Produto','ProdutoController@store');
 Route::get('/admProdutos/excluir/{id}','ProdutoController@destroy');
-Route::get('/admProdutos/escolhido/{id}','ProdutoController@show');
+Route::get('/clienteProdutos/escolhido/{id}','ProdutoController@show');
 
 
 Route::get('/admProdutos','ProdutoController@index');

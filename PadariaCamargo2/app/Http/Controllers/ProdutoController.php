@@ -15,8 +15,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {        
-        $produto = Produto::all();
-        //$produtos = DB::table('tbproduto')->orderBy('valor','desc')->get();
+        //$produto = Produto::all();
+        $produto = DB::table('tbproduto')->orderBy('dtCadastro','desc')->get();
         
         
         return view('admProdutos', compact('produto'));            
@@ -24,12 +24,12 @@ class ProdutoController extends Controller
     public function index2()
     {        
         //$produto = Produto::all();
-        $produtos = DB::table('tbproduto')->orderBy('valor','desc')->get();
+        $produto = DB::table('tbproduto')->orderBy('dtCadastro','desc')->get();
         return view('clienteProdutos', compact('produto'));
     }    
     public function index3()
     {        
-        $produto = Produto::all();
+        //$produtos = Produto::all();
         $produtos = DB::table('tbProduto')->orderBy('valor','desc')->get();
         return $produtos;
     }       
@@ -73,9 +73,10 @@ class ProdutoController extends Controller
     public function show($id)
     {
         
-        $produto = Produto::where('idProduto','=',$id)->get();        
+        $produto = Produto::where('idProduto', '=', $id)->get();        
         
-        return view('produto-escolhido', compact('produto'));   
+        return view('produto-escolhido', compact("produto"));
+        // return $produto;   
     }
 
     /**
@@ -111,5 +112,11 @@ class ProdutoController extends Controller
     {
         Produto::where('idProduto',$id)->delete();
         return redirect('/admProdutos');
+    }
+
+    public function destroyApi($id)
+    {
+        Produto::where('idProduto',$id)->delete();
+        return redirect('');
     }
 }
