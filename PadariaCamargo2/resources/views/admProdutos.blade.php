@@ -23,10 +23,11 @@
                 <th class="celTopL">Produto</th>
                 <th>Valor</th>
                 <th>Descrição</th>
-                <th> Data do Cadastro</th>
+                <th>Data do Cadastro</th>
+                <th>Foto</th>
                 <th class="celTopR">Ações</th>
             </tr>
-            <form method="POST" action="/Produto">
+            <form method="POST" action="/Produto" enctype="multipart/form-data">
             {{ csrf_field() }}
                 <tr class="tb_tr_EAdmInsert">
                     <td class="celBottonL">
@@ -39,7 +40,10 @@
                         <input type="text" name="txDescrProduto" placeholder="Ex.: Pão com salsicha">
                     </td>
                     <td>
-                        <input type="date" name="txDataCadastro" id=txDataCadastro>
+                        <input type="date" name="txDataCadastro" id="txDataCadastro">
+                    </td>
+                    <td>
+                        <input type="file" name="image" >
                     </td>
                     <td class="celBottonR">
                         <input type="reset" value="Limpar">

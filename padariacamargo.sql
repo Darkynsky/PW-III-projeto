@@ -32,8 +32,9 @@ CREATE TABLE IF NOT EXISTS `tbproduto` (
   `idProduto` int(11) NOT NULL AUTO_INCREMENT,
   `produto` varchar(100) DEFAULT NULL,
   `descrProduto` varchar(1000) DEFAULT NULL,
-  `valor` double DEFAULT NULL,
+  `valor` decimal(10,2) DEFAULT NULL,
   `dtCadastro` date DEFAULT NULL,
+  `foto` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`idProduto`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 COMMIT;

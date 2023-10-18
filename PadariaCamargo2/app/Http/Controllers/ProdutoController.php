@@ -58,6 +58,13 @@ class ProdutoController extends Controller
         $produto->descrProduto = $request->txDescrProduto;
         $produto->valor = $request->txValor;
         $produto->dtCadastro = $request->txDataCadastro;
+        
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $extension = $request->image->extension();
+            $imageName = md5($request->image->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $request->image->move(public_path('img/produtos'), $imageName);
+            $produto->foto = $imageName;
+        }
 
         $produto->save();
 

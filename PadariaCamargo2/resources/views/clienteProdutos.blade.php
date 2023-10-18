@@ -36,7 +36,7 @@
                     <div class="tb_ECliente"> 
                         <div class="tbECliente__left">
                             
-                            <img src="/img/exibidores_img.jpg" class="tb_ECliente__img">   
+                            <img src="/img/produtos/{{$c->foto}}" class="tb_ECliente__img">   
                         </div>
                         <div class="tbECliente__right">
                             <div>
