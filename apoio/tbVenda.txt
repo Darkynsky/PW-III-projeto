@@ -1,0 +1,17 @@
+create table tbVenda(
+	idVenda int primary key auto_increment,
+	idProduto int,
+	qtdProduto int,
+	foreign key (idProduto) references tbProduto(idProduto)
+);
+
+insert into tbVenda values(null,1,5);
+insert into tbVenda values(null,1,2);
+insert into tbVenda values(null,2,8);
+insert into tbVenda values(null,1,7);
+insert into tbVenda values(null,3,4);
+insert into tbVenda values(null,3,9);
+insert into tbVenda values(null,1,2);
+insert into tbVenda values(null,2,3);
+
+select idProduto,sum(qtdProduto)from tbvenda group by idProduto;

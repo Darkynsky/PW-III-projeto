@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Azul', 3],
+          ['Vermelho', 1],
+          ['Laranja', 2],
+          ['Verde', 1],
+          ['Roxo', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'Cores vendidas',
+                       'width':500,
+                       'height':400};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Element", "Density", { role: "style" } ],
+          ["Potencia", 230, "#b87333"],
+          ["Cavalo", 200, "silver"],
+          ["Velocidade (KM)", 300, "gold"],
+          ["Preço", 600, "color: #e5e4e2"]
+        ]);
+  
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+  
+        var options = {
+          title: "Especificações",
+          width: 400,
+          height: 400,
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+        chart.draw(view, options);
+    }
+    </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Rpm', 300]
+        ]);
+
+        var options = {
+          width: 600, height: 300,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div2'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 13000);
+        setInterval(function() {
+          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(data, options);
+        }, 5000);
+        setInterval(function() {
+          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+          chart.draw(data, options);
+        }, 26000);
+      }
+    </script>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+      }
+      header{
+        height: 100px;
+        width: 100%;
+        background-color: black;
+        color: aliceblue;
+        text-align: center;
+      }
+      footer{
+        height: 60px;
+        width: 100%;
+        background-color: black;
+        bottom: 0;
+        position: fixed;
+        clear: both;
+        color: white;
+        text-align: center;
+        
+      }
+      #content{       
+        min-height: 600px;
+        height: 100%; 
+        padding: 0.5%;
+        background: url(3.png) no-repeat;
+        background-size: 62%;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 30;
+
+      }
+      #chart_div{
+        float: left;
+        width: 400px;
+      }
+      #chart_div2{
+        float: right;        
+        justify-content: right;
+        position: absolute;
+        right: 0;
+        width: 150px;
+      }
+      #barchart_values{
+        margin-bottom: 5%;
+        position: absolute;
+        bottom: 0;
+        clear: both;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <header><h1>Graficos</h1></header>
+    <h1>Porche 911</h1>
+    <div id="content">
+      
+      <div id="chart_div"></div>
+      <div id="chart_div2" style="width: 400px; height: 120px;"></div>
+      <div id="barchart_values" style="width: 900px; height: 300px;"></div>
+    </div>
+    <footer><p>V1D4 LOKA 2023</p></footer>
+  </body>
+</html>

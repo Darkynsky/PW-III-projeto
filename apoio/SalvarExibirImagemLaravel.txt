@@ -1,0 +1,105 @@
+Observe: por padrão as imagens são salvas no \storage\app\public
+
+eu criei uma pasta chamada images dentro de storage\app\public do projeto
+
+Executar o comando a seguir para criar criar um apontamento (link simbólico) desta pasta para public/storage
+php artisan storage:link
+
+
+Banco de dados
+
+dbprjguaia
+
+create table tbCurso (
+  idCurso INT PRIMARY KEY AUTO_INCREMENT,
+  curso VARCHAR(40),
+  urlImgCurso varchar(2000)  
+);
+
+
+php artisan storage:link
+
+------------------------------------------------
+
+Model
+
+protected $table = 'tbCurso';
+
+public $fillable = ['idCurso','curso','urlImgCurso'];
+
+public $timestamps = false;
+
+------------------------------------------------
+
+Controller
+
+
+use App\Models\Curso;
+
+
+
+  public function index()
+    {
+        $cursos = Curso::all();
+
+        return view('curso', compact('cursos'));
+    }
+
+public function store(Request $request)
+    {
+        $curso = new Curso();
+
+        $curso->curso = $request->txCurso;
+        //$curso->urlImgCurso  = $request->txUrlImgCurso;
+
+        $image = $request->file('txUrlImgCurso');
+
+        if($image == null){
+            $path = "";
+        }else{
+            $path = $image->store('images','public');
+        }
+     
+        $curso->urlImgCurso = $path;
+
+        $curso->save();
+
+        return redirect('/curso');
+
+    }
+
+-------------------------------------------------
+View
+
+<form action="/curso" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="text" placeholder="Curso" name="txCurso" /> 
+    <input type="file" name="txUrlImgCurso" /> 
+    <input type="submit" value="Salvar" />
+</form>
+
+
+@foreach($cursos as $curso)
+    {{$curso->idCurso}}
+    {{$curso->curso}}
+    <img src= "{{asset('storage/'.$curso->urlImgCurso)}}" />
+@endforeach
+
+-------------------------------------------------
+Web.php
+
+Route::get('/curso','App\Http\Controllers\CursoController@index');
+Route::post('/curso','App\Http\Controllers\CursoController@store');
+
+-------------------------------------------------
+.env
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbprjguaia
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+

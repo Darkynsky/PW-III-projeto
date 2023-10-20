@@ -1,0 +1,94 @@
+Comando para criar a classe de validação (no prompt)
+php artisan make:request ProdutoRequest
+
+---------------------------------------
+
+Caminho
+
+app - Http - Requests
+
+--------------------------------------
+
+ProdutoRequest
+
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ProdutoRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'txProduto' => ['required','min:3']
+
+        ];
+    }
+
+    public function messages(){
+        return [
+            'txProduto.required' => 'O campo produto é obrigatório',
+            'txProduto.min' => 'O campo produto deve ter no mínino :min caracteres'        
+        ];
+    }
+
+}
+
+-----------------------------------------
+
+Controller
+
+use App\Http\Requests\ProdutoRequest;
+
+public function store(ProdutoRequest $request)
+    {        
+        $produto = new Produto();
+
+        $produto-> produto = $request->txProduto;
+        $produto-> descrProduto =  $request->txDescrProduto;
+        $produto-> valor =  $request->txValor;
+        $produto-> dtCadastro = "2023-09-27";
+
+        $produto->save();
+
+        //return redirect('/produto');
+        return redirect('/produto')->with('mensagem', 'Produto adicionado com sucesso!');
+    }
+
+-------------------------------------
+
+View
+
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li style="color:#000;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif 
+
+        @if(session('mensagem'))
+            <div class="alert alert-success">
+                <p style="color:#000;">{{session('mensagem')}}</p>
+            </div>
+        @endif
+
+
+

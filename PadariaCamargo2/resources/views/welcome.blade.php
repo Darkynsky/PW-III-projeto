@@ -20,6 +20,9 @@
             <a href="clienteProdutos">
                 <button>Comprar</button>
             </a>
+            <a href="dashboard">
+                <button>Dashboard</button>
+            </a>
             <a href="consultacep">
                 <button>Teste Cep</button>
             </a>
