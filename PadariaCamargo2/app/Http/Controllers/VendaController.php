@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Venda;
+use App\Produto;
 use Illuminate\Support\Facades\DB;
 
 class VendaController extends Controller
@@ -15,9 +16,14 @@ class VendaController extends Controller
      */
     public function index()
     {
-        $venda = Venda::all();
-        $sql = "select idProduto,sum(qtdProduto)from tbvenda group by idProduto";
-        return view('dashboard', compact('sql'));
+        $results = DB::table('tbvenda')
+        ->join('tbproduto', 'tbvenda.idProduto', '=', 'tbproduto.idProduto')
+        ->select('tbproduto.produto', DB::raw('SUM(tbvenda.qtdProduto) as total_qtdProduto'))
+        ->groupBy('tbproduto.produto')
+        ->get();
+
+    return view('dashboard', compact('results'));
+
     }
 
     /**

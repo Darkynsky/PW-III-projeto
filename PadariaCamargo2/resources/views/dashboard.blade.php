@@ -1,17 +1,16 @@
-
 <table>
     <tr>
-        <th>id produto</th>
-        <th>quantidade</th>
+        <th>Nome do produto</th>
+        <th>Quantidade</th>
     </tr>
-    @foreach($sql as $v)
+    @foreach($results as $v)
     <tr>
         <td>
-            {{$v->idProduto}}
+            {{ $v->produto }}
         </td>
         <td>
-            {{$v->qtdProduto}}
+            {{ $v->total_qtdProduto }}
         </td>
-        @endforeach
     </tr>
+    @endforeach
 </table>
