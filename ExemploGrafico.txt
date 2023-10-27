@@ -1,0 +1,115 @@
+Banco de dados
+
+bdpw3
+
+create table tbProduto(
+	idProduto int primary key auto_increment,
+	produto varchar(40),
+	descrProduto varchar(200),
+	valor float,
+	dtCadastro date
+); 
+
+insert into tbProduto values(
+	null, 'Coca-cola','refrigerante de cola',7,'2023-09-21'
+);
+
+insert into tbProduto values(
+	null, 'Hot Dog','lanche',10,'2023-09-21'
+);
+
+insert into tbProduto values(
+	null, 'batata frita','industrializada',15,'2023-09-21'
+);
+
+-------------------
+create table tbVenda(
+	idVenda int primary key auto_increment,
+	idProduto int,
+	qtdProduto int,
+	foreign key (idProduto) references tbProduto(idProduto)
+);
+
+insert into tbVenda values(null,1,5);
+insert into tbVenda values(null,1,2);
+insert into tbVenda values(null,2,8);
+insert into tbVenda values(null,1,7);
+insert into tbVenda values(null,3,4);
+insert into tbVenda values(null,3,9);
+insert into tbVenda values(null,1,2);
+insert into tbVenda values(null,2,3);
+
+select idProduto,sum(qtdProduto) from tbVenda group by idProduto
+
+
+-----------------------------------------------------
+Rota
+Route::get('/dashboard','VendaController@index');
+
+-----------------------------------------------------
+
+Model
+
+protected $table = 'tbVenda';
+
+    protected $fillable= ['idVenda','idProduto','qtdProduto'];
+
+    public $timestamps = false;
+
+------------------------------------------------------
+
+Controller
+
+use App\Produto;
+use Illuminate\Support\Facades\DB;
+
+public function index()
+    {
+        $sql = "select idProduto,sum(qtdProduto) qtd from tbVenda group by idProduto";
+        $vendas = DB::select($sql);
+
+        return view('dashboard',compact('vendas'));
+    }
+
+----------------------------------------------------
+
+
+View
+
+@foreach($vendas as $v)
+    {{$v->idProduto}}    
+    {{$v->qtd}}
+    <br />
+@endforeach
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Produto', 'Quantidade'],
+            @foreach($vendas as $v)
+                ['{{$v->idProduto}}',{{$v->qtd}}],    
+            @endforeach                  
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
