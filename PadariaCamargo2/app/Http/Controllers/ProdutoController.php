@@ -7,6 +7,7 @@ use App\Produto;
 use App\Venda;
 use Illuminate\Support\Facades\DB;
 
+
 class ProdutoController extends Controller
 {
     /**
@@ -71,6 +72,29 @@ class ProdutoController extends Controller
         $produto->save();
 
         return redirect('/admProdutos');
+    }
+    public function storeApi(Request $request)
+    {
+        $produto = new Produto();
+
+        $produto->produto = $request->input('txProduto');
+        $produto->descrProduto = $request->input('txDescrProduto');
+        $produto->valor = $request->input('txValor');
+        $produto->dtCadastro = $request->input('txDataCadastro');
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $extension = $request->image->extension();
+            $imageName = md5($request->image->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $request->image->move(public_path('img/produtos'), $imageName);
+            $produto->foto = $imageName;
+        }
+
+        $produto->save();
+
+        return Response::json([
+            'message' => 'Produto criado com sucesso',
+            'data' => $produto,
+        ], 201); // 201 Created é um código de status comum para operações de criação bem-sucedidas
     }
 
     /**
