@@ -161,7 +161,7 @@ class ProdutoController extends Controller
         return redirect('/admProdutos');
     }
 
-    public function destroyApi(string $id)
+    public function destroyApi($id)
     {
         Produto::where('idProduto',$id)->delete();
         

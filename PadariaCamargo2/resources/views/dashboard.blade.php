@@ -21,7 +21,12 @@
         ]);
 
         var options = {
-          title: 'Dashboard'
+          title: 'Dashboard',
+          titleTextStyle: {fontSize: 25},
+          backgroundColor:'transparent',
+          legend: {
+            textStyle: {color: '#000', fontSize: 25}
+          },
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

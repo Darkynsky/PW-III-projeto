@@ -62,3 +62,14 @@ else {
     limpa_formulário_cep();
 }
 };
+
+async function buscarCep(CEP)
+{
+    const connection = await fetch(`https://viacep.com.br/ws/${CEP}/json/`);
+    const cepJson = await connection.json();
+    console.log(cepJson)
+    return (cepJson);
+}
+
+buscarCep("01001000")
+
