@@ -15,7 +15,7 @@
         <div class="logo">
             <img src="img/logo.png" alt="Logo da Página">
         </div>
-        <!--<button id="botaoSair">Sair</button>-->
+        <a href="/logout"> <button>Sair</button> </a>
     </header>
     <div class="content">
         <table class="tb_EAdm">

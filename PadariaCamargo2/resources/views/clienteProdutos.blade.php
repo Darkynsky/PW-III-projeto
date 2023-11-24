@@ -25,7 +25,7 @@
                 Voltar
                 
             </a>
-            <!--<button id="botaoSair">Sair</button>-->
+            <a href="/logout"> <button>Sair</button> </a>
         </header>
         
         <div class="content2">

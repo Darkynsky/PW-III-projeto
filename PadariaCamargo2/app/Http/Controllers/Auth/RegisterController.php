@@ -81,23 +81,23 @@ class RegisterController extends Controller
             return redirect('/login');
         }        
         else{
-            return redirect('/dashboard');        
+            return redirect('/');        
         }
     }
 
     public function store(Request $request)
     {
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user -> password = Hash::make($request->password);        
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user ->password = Hash::make($request->input('password'));        
         $user->created_at = date('Y-m-d');
         $user->updated_at = date('Y-m-d');        
         $user ->save();
 
-        //Auth::login($user);
+        Auth::login($user);
 
-      // return redirect('/')->with('mensagem', 'Usuário adicionado com sucesso!');;
+        return redirect('/')->with('mensagem', 'Usuário adicionado com sucesso!');;
     }
 
     public function verifyUser(Request $request){        
@@ -106,7 +106,7 @@ class RegisterController extends Controller
             return redirect('/login');
         }        
         else{
-            return redirect('/dashboard');        
+            return redirect('/');        
         }
     }
 
